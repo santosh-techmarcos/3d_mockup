@@ -1,0 +1,134 @@
+@font-face {
+    font-family: 'Gotham Book';
+    src: url('/fonts/Gotham-Book.woff') format('woff'),
+         url('/fonts/Gotham-Book.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Gotham';
+    src: url('/fonts/Gotham-Light.woff') format('woff'),
+         url('/fonts/Gotham-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Gotham';
+    src: url('/fonts/Gotham-Medium.woff') format('woff'),
+         url('/fonts/Gotham-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Gotham';
+    src: url('/fonts/Gotham-Bold.woff') format('woff'),
+         url('/fonts/Gotham-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Gotham Ultra';
+    src: url('/fonts/Gotham-Ultra.woff') format('woff'),
+         url('/fonts/Gotham-Ultra.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Gotham';
+    src: url('/fonts/Gotham-Black.woff') format('woff'),
+         url('/fonts/Gotham-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Helvetica Neue';
+    src: url('/fonts/HelveticaNeue.woff') format('woff'),
+         url('/fonts/HelveticaNeue.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Proxima Nova Rg';
+    src: url('/fonts/ProximaNova-Regular.woff') format('woff'),
+         url('/fonts/ProximaNova-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'DM Mono';
+    src: url('/fonts/DMMono-Medium.woff') format('woff'),
+         url('/fonts/DMMono-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'CircularXX TT';
+    src: url('/fonts/CircularXXTT-Bold.woff') format('woff'),
+         url('/fonts/CircularXXTT-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'CircularXX TT';
+    src: url('/fonts/CircularXXTT-Regular.woff') format('woff'),
+         url('/fonts/CircularXXTT-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'CircularXX TT';
+    src: url('/fonts/CircularXXTT-Black.woff') format('woff'),
+         url('/fonts/CircularXXTT-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'CircularXX Book';
+    src: url('/fonts/CircularXX-Book.woff') format('woff'),
+         url('/fonts/CircularXX-Book.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'DIN 2014 Narrow';
+    src: url('/fonts/DIN2014-NarrowBold.woff') format('woff'),
+         url('/fonts/DIN2014-NarrowBold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'CircularXX ExtraBlack';
+    src: url('/fonts/CircularXX-ExtraBlack.woff') format('woff'),
+         url('/fonts/CircularXX-ExtraBlack.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}

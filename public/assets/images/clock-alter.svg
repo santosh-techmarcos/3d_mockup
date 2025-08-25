@@ -1,0 +1,10 @@
+<svg id="clock-alter" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="114.331" height="114.331" viewBox="0 0 114.331 114.331">
+  <defs>
+    <clipPath id="clip-path">
+      <rect id="Rectangle_1459" data-name="Rectangle 1459" width="114.331" height="114.331" fill="#d0011c"/>
+    </clipPath>
+  </defs>
+  <g id="Group_71" data-name="Group 71" clip-path="url(#clip-path)">
+    <path id="Path_207" data-name="Path 207" d="M57.165,0A57.165,57.165,0,1,0,114.33,57.166,57.165,57.165,0,0,0,57.165,0M77.132,85.343,48.97,67.655l.208-.33h-.535V15.671H65.514V58.123L86.106,71.055Z" transform="translate(0 0)" fill="#d0011c"/>
+  </g>
+</svg>
