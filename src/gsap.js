@@ -55,14 +55,13 @@ function getElemRect({ el, hasParent = false, hasgrandParent = false, markers = 
     }
   };
 
-  // Outline target element
-  if (debugTarget) {
-    debugTarget.style.outline = `1px dashed ${color}`;
-    // debugTarget.style.outlineOffset = "-2px"; // avoid margin issues
-  }
-
   // Optional markers
   if (markers) {
+      // Outline target element
+    if (debugTarget) {
+      debugTarget.style.outline = `1px dashed ${color}`;
+      // debugTarget.style.outlineOffset = "-2px"; // avoid margin issues
+    }
     Object.entries(points).forEach(([key, p]) => {
       const dot = document.createElement("div");
       dot.style.cssText = `
@@ -82,6 +81,11 @@ function getElemRect({ el, hasParent = false, hasgrandParent = false, markers = 
 
     // Optional markers
   if (markersText) {
+    // Outline target element
+    if (debugTarget) {
+      debugTarget.style.outline = `1px dashed ${color}`;
+      // debugTarget.style.outlineOffset = "-2px"; // avoid margin issues
+    }
     Object.entries(points).forEach(([key, p]) => {
       const labelText = document.createElement("div");
       labelText.textContent = `${label} - ${key}`;
@@ -122,7 +126,7 @@ function getSvgPathFromPoints(points) {
 }
 
 function drawMotionPath1(points, options = {}) {
-  const { color = "red", width = 2, id = "motion-path-svg", curviness = 1.5 } = options;
+  const { color = "", width = 2, id = "motion-path-svg", curviness = 2 } = options;
 
   const svgNS = "http://www.w3.org/2000/svg";
 
@@ -164,31 +168,29 @@ gsap.registerPlugin(MotionPathPlugin, ScrollTrigger);
 
 window.addEventListener("load", () => {
   const startpoint = getElemRect({ el: ".img-sec" });
-  const ref1 = getElemRect({ el: ".ref-1", hasgrandParent: true });
-  const ref2 = getElemRect({ el: ".ref-2", hasgrandParent: true });
-  const ref3 = getElemRect({ el: ".ref-3", hasgrandParent: true });
-  const ref4 = getElemRect({ el: ".ref-4" });
+  const firstSection = getElemRect({ el: ".ref-1", hasgrandParent: true });
+  const secondSection = getElemRect({ el: ".ref-2", hasgrandParent: true });
+  const thirdSection = getElemRect({ el: ".ref-3", hasgrandParent: true });
+  const endpoint = getElemRect({ el: ".ref-4" });
 
   const motionPath = [
     { x: startpoint.center.x, y: startpoint.center.y },
     { x: startpoint.bottomCenter.x, y: startpoint.bottomCenter.y },
     { x: startpoint.bottomCenter.x, y: startpoint.bottomCenter.y + 100 },
-    { x: ref1.topCenter.x, y: ref1.topCenter.y },
-    { x: ref1.topCenter.x, y: ref1.topCenter.y + 100 },
-    { x: ref1.topCenter.x, y: ref1.topCenter.y + 200 },
-    { x: ref1.center.x, y: ref1.center.y },
-    { x: ref1.center.x, y: ref1.center.y + 100 },
-    { x: ref1.center.x, y: ref1.center.y + 200 },
-    { x: ref1.bottomCenter.x, y: ref1.bottomCenter.y },
-    { x: ref2.topCenter.x, y: ref2.topCenter.y },
-    { x: ref2.bottomCenter.x, y: ref2.bottomCenter.y },
-    { x: ref3.topCenter.x, y: ref3.topCenter.y },
-    { x: ref3.bottomCenter.x, y: ref3.bottomCenter.y },
-    { x: ref4.topCenter.x, y: ref4.topCenter.y },
-    { x: ref4.center.x, y: ref4.center.y }
+    { x: firstSection.topCenter.x, y: firstSection.topCenter.y },
+    { x: firstSection.topCenter.x, y: firstSection.topCenter.y + 200 },
+    { x: firstSection.center.x, y: firstSection.center.y },
+    { x: firstSection.center.x, y: firstSection.center.y + 200 },
+    { x: firstSection.bottomCenter.x, y: firstSection.bottomCenter.y },
+    { x: secondSection.topCenter.x, y: secondSection.topCenter.y },
+    { x: secondSection.bottomCenter.x, y: secondSection.bottomCenter.y },
+    { x: thirdSection.topCenter.x, y: thirdSection.topCenter.y },
+    { x: thirdSection.bottomCenter.x, y: thirdSection.bottomCenter.y },
+    { x: endpoint.topCenter.x, y: endpoint.topCenter.y },
+    { x: endpoint.center.x, y: endpoint.center.y }
   ];
 
-  drawMotionPath1(motionPath, { color: "blue", width: 3 });
+  drawMotionPath1(motionPath);
 
   // collect all sections
   let sections = gsap.utils.toArray(".has-path");
@@ -201,7 +203,7 @@ window.addEventListener("load", () => {
       endTrigger: sections[sections.length - 1], // end at last section
       start: "20%",
       end: "+=" + path.getBoundingClientRect().height, // <-- use path length for scroll distance
-      scrub: true,
+      scrub: 0.5,
       markers: true
     }
   });
@@ -218,6 +220,7 @@ window.addEventListener("load", () => {
     },
     ease: "none" // important for scroll sync
   });
+  tl.to(".main-img", { scale: 1.1, ease: "none" }, 0);
 });
 
 
