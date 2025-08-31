@@ -1,0 +1,46 @@
+{
+  "hash": "866afa68",
+  "configHash": "36ba9b3c",
+  "lockfileHash": "2d3d0169",
+  "browserHash": "f7ab669c",
+  "optimized": {
+    "three": {
+      "src": "../../node_modules/three/build/three.module.js",
+      "file": "three.js",
+      "fileHash": "b41429c1",
+      "needsInterop": false
+    },
+    "three/examples/jsm/Addons.js": {
+      "src": "../../node_modules/three/examples/jsm/Addons.js",
+      "file": "three_examples_jsm_Addons__js.js",
+      "fileHash": "6df8f7ed",
+      "needsInterop": false
+    },
+    "gsap": {
+      "src": "../../node_modules/gsap/index.js",
+      "file": "gsap.js",
+      "fileHash": "81071ee4",
+      "needsInterop": false
+    },
+    "gsap/ScrollTrigger": {
+      "src": "../../node_modules/gsap/ScrollTrigger.js",
+      "file": "gsap_ScrollTrigger.js",
+      "fileHash": "57605081",
+      "needsInterop": false
+    },
+    "gsap/MotionPathPlugin": {
+      "src": "../../node_modules/gsap/MotionPathPlugin.js",
+      "file": "gsap_MotionPathPlugin.js",
+      "fileHash": "8902d3c1",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-DSDUBZJN": {
+      "file": "chunk-DSDUBZJN.js"
+    },
+    "chunk-PZ5AY32C": {
+      "file": "chunk-PZ5AY32C.js"
+    }
+  }
+}

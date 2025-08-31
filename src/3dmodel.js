@@ -30,8 +30,8 @@ class ModelMaker {
       typeof canvases === "string" ? document.querySelectorAll(canvases) : canvases;
     this.refImage = typeof refImage === "string" ? document.querySelector(refImage) : refImage;
     this.context = context;
-    this.environment = typeof environmentUri === "string" ? environmentUri : `public/assets/models/environment.hdr`;
-    this.modelUri = typeof modelUri === "string" ? modelUri : `public/assets/models/${initial.modelName || "model"}.gltf`;
+    this.environment = typeof environmentUri === "string" ? environmentUri : `/assets/models/environment.hdr`;
+    this.modelUri = typeof modelUri === "string" ? modelUri : `/assets/models/${initial.modelName || "model"}.gltf`;
 
     // sections to observe for texture swap; elements with class .has-path
     this.pages = Array.from(document.querySelectorAll(".has-path"));
@@ -466,7 +466,7 @@ class ModelMaker {
    - Instantiate and initialize ModelMaker:
 
 */
-const modelMaker = new ModelMaker(".model-maker-canvas", ".main-img", null, "public/assets/models/environment.hdr", "public/assets/models/model.gltf");
+const modelMaker = new ModelMaker(".model-maker-canvas", ".main-img", null, "/assets/models/environment.hdr", "/assets/models/model.gltf");
 modelMaker.setupCanvasSizeAsync().then(() => {
   modelMaker.initCanvas();
   // Optional: pass settings if you use internal setupScrollAnimation
