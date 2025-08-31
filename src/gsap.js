@@ -1,8 +1,9 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
+import ModelMaker from "./3dmodel";
 
-function getElemRect({ el, hasParent = false, hasgrandParent = false, markers = false, markersText = false }) {
+export function getElemRect({ el, hasParent = false, hasgrandParent = false, markers = false, markersText = false }) {
   // Allow selector string
   if (typeof el === "string") {
     el = document.querySelector(el);
@@ -126,7 +127,15 @@ function getSvgPathFromPoints(points) {
 }
 
 function drawMotionPath1(points, options = {}) {
-  const { color = "", width = 2, id = "motion-path-svg", curviness = 2 } = options;
+  const { 
+    color = "", 
+    width = 2, 
+    id = "motion-path-svg", 
+    curviness = 0.5,
+    showMarkers = false, // ✅ new option
+    markerColor = "blue",
+    markerRadius = 4
+  } = options;
 
   const svgNS = "http://www.w3.org/2000/svg";
 
@@ -158,10 +167,35 @@ function drawMotionPath1(points, options = {}) {
   path.setAttribute("vector-effect", "non-scaling-stroke");
 
   svg.appendChild(path);
-  document.body.appendChild(svg);
 
+  // ✅ If markers are enabled, draw small circles at each anchor point
+  if (showMarkers) {
+    points.forEach((pt, i) => {
+      const circle = document.createElementNS(svgNS, "circle");
+      circle.setAttribute("cx", pt.x);
+      circle.setAttribute("cy", pt.y);
+      circle.setAttribute("r", markerRadius);
+      circle.setAttribute("fill", markerColor);
+      circle.setAttribute("stroke", "#fff");
+      circle.setAttribute("stroke-width", 1);
+
+      // optional: add index label
+      const text = document.createElementNS(svgNS, "text");
+      text.setAttribute("x", pt.x + 8);
+      text.setAttribute("y", pt.y + 4);
+      text.setAttribute("font-size", "12");
+      text.setAttribute("fill", markerColor);
+      text.textContent = i;
+      svg.appendChild(text);
+
+      svg.appendChild(circle);
+    });
+  }
+
+  document.body.appendChild(svg);
   return svg;
 }
+
 
 
 gsap.registerPlugin(MotionPathPlugin, ScrollTrigger);
@@ -175,22 +209,34 @@ window.addEventListener("load", () => {
 
   const motionPath = [
     { x: startpoint.center.x, y: startpoint.center.y },
-    { x: startpoint.bottomCenter.x, y: startpoint.bottomCenter.y },
-    { x: startpoint.bottomCenter.x, y: startpoint.bottomCenter.y + 100 },
+    { x: startpoint.center.x, y: startpoint.center.y + 50 },
+    { x: startpoint.bottomCenter.x, y: startpoint.bottomCenter.y},
+
     { x: firstSection.topCenter.x, y: firstSection.topCenter.y },
     { x: firstSection.topCenter.x, y: firstSection.topCenter.y + 200 },
     { x: firstSection.center.x, y: firstSection.center.y },
-    { x: firstSection.center.x, y: firstSection.center.y + 200 },
+    { x: firstSection.bottomCenter.x, y: firstSection.bottomCenter.y - 200 },
     { x: firstSection.bottomCenter.x, y: firstSection.bottomCenter.y },
+    
     { x: secondSection.topCenter.x, y: secondSection.topCenter.y },
+    { x: secondSection.topCenter.x, y: secondSection.topCenter.y + 200 },
+    { x: secondSection.center.x, y: secondSection.center.y },
+    { x: secondSection.bottomCenter.x, y: secondSection.bottomCenter.y - 200 },
     { x: secondSection.bottomCenter.x, y: secondSection.bottomCenter.y },
+
     { x: thirdSection.topCenter.x, y: thirdSection.topCenter.y },
+    { x: thirdSection.topCenter.x, y: thirdSection.topCenter.y + 200 },
+    { x: thirdSection.center.x, y: thirdSection.center.y },
+    { x: thirdSection.bottomCenter.x, y: thirdSection.bottomCenter.y - 300 },
     { x: thirdSection.bottomCenter.x, y: thirdSection.bottomCenter.y },
+
+    { x: endpoint.topCenter.x, y: endpoint.topCenter.y - 200 },
     { x: endpoint.topCenter.x, y: endpoint.topCenter.y },
     { x: endpoint.center.x, y: endpoint.center.y }
   ];
 
-  drawMotionPath1(motionPath);
+  // drawMotionPath1(motionPath, { color: "red", width: 2 });
+  drawMotionPath1(motionPath, { curviness: 1.2 });
 
   // collect all sections
   let sections = gsap.utils.toArray(".has-path");
@@ -202,27 +248,45 @@ window.addEventListener("load", () => {
       trigger: sections[0],     // start at first section
       endTrigger: sections[sections.length - 1], // end at last section
       start: "20%",
-      end: "+=" + path.getBoundingClientRect().height, // <-- use path length for scroll distance
+      end: `+=${path.getBoundingClientRect().height}`, // <-- use path length for scroll distance
       scrub: 0.5,
       markers: true
     }
   });
 
   // motionPath controlled by scroll
-  tl.to(".main-img", {
+  tl.to(".model-maker-canvas", {
     motionPath: {
       path: path,
       align: path,
       alignOrigin: [0.5, 0.5],
-      curviness: 1.5,
       // autofocus: true,
       autoRotate: -90 
     },
     ease: "none" // important for scroll sync
+  }, 0);
+  const bodyClasses = ["theme-1", "theme-2", "theme-3", "theme-4"]; // or bg colors
+  const bgColors   = ["#FFFFFF", "#D0011C", "#914C9D", "#F57F20", "#FFFFFF"]; // optional
+
+  sections.forEach((sec, i) => {
+    ScrollTrigger.create({
+      trigger: sec,
+      start: "top center",
+      end: i === sections.length - 1 ? "bottom bottom" : "bottom center", // ✅ different end for last section
+      onEnter: () => {
+        // if you want classes
+        document.body.className = bodyClasses[i];
+
+        // OR if you want smooth bg color fade
+        gsap.to(document.body, { backgroundColor: bgColors[i], duration: 1 });
+      },
+      onEnterBack: () => {
+        document.body.className = bodyClasses[i];
+        gsap.to(document.body, { backgroundColor: bgColors[i], duration: 1 });
+      }
+    });
   });
-  tl.to(".main-img", { scale: 1.1, ease: "none" }, 0);
+  
 });
-
-
 
 

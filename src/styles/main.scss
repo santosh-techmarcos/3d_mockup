@@ -20,7 +20,7 @@
 .gap-2{gap: 15px;}
 
 html {font-size: 18px;;scroll-behavior: smooth;}
-body {@extend .f-normal;color: $dark;height:100%;font-size: 1rem;line-height: 1.6;overflow-x: hidden;
+body {@extend .f-normal;color: $dark;height:auto;font-size: 1rem;line-height: 1.6;overflow-x: hidden;
   &:not(.page-template-home):not(.single-product):not(.page-template-product-list):not(.page-template-about):not(.page-template-drinklolli):not(.page-template-product-info):not(.page-template-landing-page):not(.page-template-merchandise) {
     .head {background: $white;}
   }
@@ -497,7 +497,8 @@ span.select2-container {z-index: 999 !important;}
 .text-anim-sec{@extend .position-relative;}
 .front-container{
   @extend .full-abs, .h-100, .sec-pd, .d-flex, .justify-content-center, .align-items-end;
-  pointer-events: none;
+  // pointer-events: none;
+  .main-img{opacity: 0;}
   .helper-img:first-child{transform: scale(.7) translateY(-60%) rotate(30deg)}
   .helper-img:last-child{transform: scale(.8) translateY(-80%) translateX(-10%) rotate(310deg)}
 }
