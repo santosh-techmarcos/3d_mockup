@@ -157,7 +157,8 @@ body {@extend .f-normal;color: $dark;height:auto;font-size: 1rem;line-height: 1.
   }
 }
 
-.bg-theme {background: $theme-color;
+.bg-theme {
+  // background: $theme-color;
   .head-xl {color: $theme-dark;}
   .v-text{color: $theme-dark;}
   .theme-btn:not(.white) {background: $white;color: $theme-color;
@@ -168,8 +169,10 @@ body {@extend .f-normal;color: $dark;height:auto;font-size: 1rem;line-height: 1.
   }
   .arrow-link {color: $theme-dark;}
 }
-.bg-second {background: $secondary-color;
+.bg-second {
+  // background: $secondary-color;
   .head-xl {color: $alter-dark;}
+  .v-text{color: $alter-dark;}
   .theme-btn:not(.white) {background: $white;color: $secondary-color;
     &:hover {background: $alter-dark;color: $secondary-color;}
   }
@@ -178,7 +181,9 @@ body {@extend .f-normal;color: $dark;height:auto;font-size: 1rem;line-height: 1.
   }
   .arrow-link {color: $alter-dark;}
 }
-.bg-alter {background: $alter-color;
+.bg-alter {
+  // background: $alter-color;
+  .v-text{color: $theme-color;}
   .head-xl {color: $theme-color}
   .theme-btn:not(.white) {background: $white;color: $alter-color;
     &:hover {background: $theme-color;color: $alter-color;}

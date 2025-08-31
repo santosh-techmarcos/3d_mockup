@@ -1,7 +1,6 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
-import ModelMaker from "./3dmodel";
 
 export function getElemRect({ el, hasParent = false, hasgrandParent = false, markers = false, markersText = false }) {
   // Allow selector string
@@ -110,20 +109,6 @@ export function getElemRect({ el, hasParent = false, hasgrandParent = false, mar
   }
 
   return points;
-}
-
-
-function getSvgPathFromPoints(points) {
-  if (!points || points.length === 0) return "";
-
-  const [first, ...rest] = points;
-  let d = `M ${first.x} ${first.y}`; // Move to first point
-
-  rest.forEach(p => {
-    d += ` L ${p.x} ${p.y}`; // Line to next point
-  });
-
-  return d;
 }
 
 function drawMotionPath1(points, options = {}) {
@@ -236,7 +221,7 @@ window.addEventListener("load", () => {
   ];
 
   // drawMotionPath1(motionPath, { color: "red", width: 2 });
-  drawMotionPath1(motionPath, { curviness: 1.2 });
+  drawMotionPath1(motionPath, { curviness: 1.1 });
 
   // collect all sections
   let sections = gsap.utils.toArray(".has-path");
@@ -248,9 +233,8 @@ window.addEventListener("load", () => {
       trigger: sections[0],     // start at first section
       endTrigger: sections[sections.length - 1], // end at last section
       start: "20%",
-      end: `+=${path.getBoundingClientRect().height}`, // <-- use path length for scroll distance
+      end: `+=${path.getBoundingClientRect().height }`, // <-- use path length for scroll distance
       scrub: 0.5,
-      markers: true
     }
   });
 
@@ -265,7 +249,7 @@ window.addEventListener("load", () => {
     },
     ease: "none" // important for scroll sync
   }, 0);
-  const bodyClasses = ["theme-1", "theme-2", "theme-3", "theme-4"]; // or bg colors
+  const bodyClasses = ["bg-first", "bg-theme", "bg-second", "bg-alter", "bg-last"]; // or bg colors
   const bgColors   = ["#FFFFFF", "#D0011C", "#914C9D", "#F57F20", "#FFFFFF"]; // optional
 
   sections.forEach((sec, i) => {
@@ -275,13 +259,14 @@ window.addEventListener("load", () => {
       end: i === sections.length - 1 ? "bottom bottom" : "bottom center", // ✅ different end for last section
       onEnter: () => {
         // if you want classes
-        document.body.className = bodyClasses[i];
+        sec.classList.add(bodyClasses[i]);
+
 
         // OR if you want smooth bg color fade
         gsap.to(document.body, { backgroundColor: bgColors[i], duration: 1 });
       },
       onEnterBack: () => {
-        document.body.className = bodyClasses[i];
+        sec.classList.add(bodyClasses[i]);
         gsap.to(document.body, { backgroundColor: bgColors[i], duration: 1 });
       }
     });
