@@ -14,11 +14,11 @@ window.addEventListener("load", async () => {
   // ✅ Default cherry.webp texture
   model.changeTextureCrossfade("./assets/models/LOL-Label-cherry.webp");
 
-  const startpoint = getElemRect({ el: ".img-sec", markers:true });
-  const firstSection = getElemRect({ el: ".ref-1", hasgrandParent: true, markers:true });
-  const secondSection = getElemRect({ el: ".ref-2", hasgrandParent: true, markers:true });
-  const thirdSection = getElemRect({ el: ".ref-3", hasgrandParent: true, markers:true });
-  const endpoint = getElemRect({ el: ".ref-4", markers:true });
+  const startpoint = getElemRect({ el: ".img-sec", markers:false });
+  const firstSection = getElemRect({ el: ".ref-1", hasgrandParent: true, markers:false });
+  const secondSection = getElemRect({ el: ".ref-2", hasgrandParent: true, markers:false });
+  const thirdSection = getElemRect({ el: ".ref-3", hasgrandParent: true, markers:false });
+  const endpoint = getElemRect({ el: ".ref-4", markers:false });
 
   const motionPath = [
     { x: startpoint.center.x, y: startpoint.center.y }, //0
@@ -65,7 +65,7 @@ window.addEventListener("load", async () => {
   ];
 
   // SVG motion path preview
-  let svg = getSvgPath(motionPath, { curviness: 1, color: 'red', showMarkers:true });
+  let svg = getSvgPath(motionPath, { curviness: 1, color: 'red', showMarkers:false });
   document.body.appendChild(svg);
 
   let sections = gsap.utils.toArray(".has-path");
