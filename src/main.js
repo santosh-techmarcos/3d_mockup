@@ -1,12 +1,10 @@
+import './script/gsap.js';
+import './script/3dmodel.js';
+import './script/mix.js';
 import './styles/main.scss';
-import './gsap.js';
-import './3dmodel.js';
 
 let resetHeadTimeout;
 let isHeadVisible = false;
-let activeMessages = new Map(); // Store messages with their elements
-const MAX_DUPLICATES = 2; // Maximum allowed instances of the same message
-let processedNotices = new Set(); // Store WooCommerce notices
 
 const siteHeader = document.querySelector('.site-header');
 const headHeight = siteHeader ? siteHeader.offsetHeight : 0;
