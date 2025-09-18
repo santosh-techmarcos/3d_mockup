@@ -82,7 +82,7 @@ window.addEventListener("load", async () => {
       scrub: true,
       onUpdate: self => {
         model.updateRotation({
-          x: 0.1,
+          x: 0.065,
           y: 4.47 + self.progress * Math.PI * 20,
           z: 0
         });

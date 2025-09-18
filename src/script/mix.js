@@ -16,13 +16,15 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 
-// Environment
 new RGBELoader().load("./assets/models/environment.hdr", (hdr) => {
-  hdr.mapping = THREE.EquirectangularReflectionMapping;
-  scene.environment = hdr;
-  scene.environmentIntensity = 0.8;
-});
+  hdr.mapping = THREE.EquirectangularRefractionMapping;
 
+  hdr.center.set(0.5, 0.5);
+  hdr.rotation = Math.PI / 1.5;
+
+  scene.environment = hdr;
+  scene.environmentIntensity = 1;
+});
 // Reusable function to create cans
 function createCan(model, position, scale, rotationZ, texturePath, tiltDelay = 0) {
   const can = model.clone();
@@ -31,12 +33,19 @@ function createCan(model, position, scale, rotationZ, texturePath, tiltDelay = 0
   can.rotation.z = rotationZ;
   scene.add(can);
 
-  // Apply texture to "Body"
+  // Apply texture to "Silver"
   can.traverse((child) => {
+    if (child.isMesh && child.material.name === "Silver") {
+      child.material = child.material.clone(); // 👈 clone material so textures stay independent
+      child.material.metalness = 1;
+      child.material.roughness = 0.17;
+    }
+
     if (child.isMesh && child.material.name === "Body") {
       child.material = child.material.clone(); // 👈 clone material so textures stay independent
-      child.material.metalness = 1
-      child.material.roughness = 0.2
+      child.material.metalness = 1.1;
+      child.material.roughness = 0.3;
+      child.material.envMapIntensity = 1.5;
       const tex = new THREE.TextureLoader().load(texturePath);
       tex.colorSpace = THREE.SRGBColorSpace;
       tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
@@ -47,12 +56,12 @@ function createCan(model, position, scale, rotationZ, texturePath, tiltDelay = 0
       tex.offset.x = 3.28; 
       
       // Rotate texture (scroll around can)
-      // gsap.to(tex.offset, {
-      //   x: 1,
-      //   duration: 6,
-      //   repeat: -1,
-      //   ease: "linear",
-      // });
+      gsap.to(tex.offset, {
+        x: 1,
+        duration: 20,
+        repeat: -1,
+        ease: "linear",
+      });
     }
   });
 

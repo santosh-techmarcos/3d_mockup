@@ -10,8 +10,8 @@ class ModelMaker {
     initial = {
       rotation: { x: 0.065, y: 4.56, z: 0 },
       cameraAxis: { x: 0, y: 1.6, z: 46 },
-      metalness: 1,
-      roughness: 0.19,
+      metalness: 1.1,
+      roughness: 0.3,
     },
   }) {
     this.canvas =
@@ -160,6 +160,13 @@ class ModelMaker {
             if (child.isMesh && child.material.name === "Body") {
               child.material.metalness = this.initial.metalness;
               child.material.roughness = this.initial.roughness;
+              child.castShadow = true;
+              child.receiveShadow = true;
+              this.bodyMeshes.push(child);
+            }
+            if (child.isMesh && child.material.name === "Silver") {
+              child.material.metalness = 1;
+              child.material.roughness = 0.17;
               child.castShadow = true;
               child.receiveShadow = true;
               this.bodyMeshes.push(child);
