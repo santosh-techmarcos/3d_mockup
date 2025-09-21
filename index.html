@@ -5,13 +5,14 @@
     <link rel="icon" type="image/svg+xml" href="./vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite App</title>
-    <script type="module" crossorigin src="./assets/index-DYWtBNav.js"></script>
-    <link rel="stylesheet" crossorigin href="./assets/index-DSNsMz6M.css">
+    <script type="module" crossorigin src="./assets/index-CvdV0f6Z.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CTU0OqN4.css">
   </head>
   <body id="app">
-    <canvas id="webgl"></canvas>
+    <img src="./assets/images/banner-leaf.png" alt="Leaf" class="leaf">
+
     <!-- Section start | header -->
-    <header class="site-header nav-down fixed-top" id="head">
+    <header class="site-header nav-down scroll y-moved" id="head">
       <div class="head">
         <div class="inner-container">
           <div class="head-nav">
@@ -95,13 +96,42 @@
       <div class="back-container sec-pd">
         <!-- anim text -->
         <div class="text-anim">
-          <h1 class="head-3xl">CLASSICSODA</h1>
+          <div class="text-track d-inline-flex">
+            <h1 class="head-3xl">CLASSICSODA</h1>
+            <h1 class="head-3xl">CLASSICSODA</h1> <!-- duplicate -->
+          </div>
         </div>
         <div class="fruit-container">
-          <div class="fruit-elem"></div>
-          <div class="fruit-elem"></div>
-          <div class="fruit-elem"></div>
-          <div class="fruit-elem"></div>
+          <!-- Apple -->
+          <div class="fruit-elem">
+            <img src="./assets/images/fruit-apple.png" alt="Apple">
+          </div>
+          <div class="fruit-elem">
+            <img src="./assets/images/fruit-apple.png" alt="Apple">
+          </div>
+          <div class="fruit-elem">
+            <img src="./assets/images/fruit-apple.png" alt="Apple">
+          </div>
+          <!-- Grape -->
+          <div class="fruit-elem">
+            <img src="./assets/images/fruit-grape.png" alt="Grape">
+          </div>
+          <div class="fruit-elem">
+            <img src="./assets/images/fruit-grape.png" alt="Grape">
+          </div>
+          <!-- Orange -->
+          <div class="fruit-elem">
+            <img src="./assets/images/fruit-half-orange.png" alt="Orange">
+          </div>
+          <div class="fruit-elem">
+            <img src="./assets/images/fruit-half-orange.png" alt="Orange">
+          </div>
+          <div class="fruit-elem">
+            <img src="./assets/images/fruit-half-orange.png" alt="Orange">
+          </div>
+          <div class="fruit-elem">
+            <img src="./assets/images/fruit-orange.png" alt="Orange">
+          </div>
         </div>
       </div>
 
@@ -120,7 +150,7 @@
       <div class="front-container">
         <div class="img-sec">
           <!-- <img class="helper-img" src="./assets/images/orange-can.png" alt="Cherry soda"> -->
-          <img class="main-img" src="./assets/images/cheery.png" alt="Cherry soda">
+          <img class="main-img" src="./assets/models/img-ref.png" alt="Cherry soda">
           <!-- <img class="helper-img" src="./assets/images/grape-can.png" alt="Cherry soda"> -->
         </div>
       </div>
@@ -173,7 +203,7 @@
             <div class="col-lg-6 order-1 order-lg-2">
               <div class="sec-img sticky-wrap position-relative h-100">
                 <div class="inner-wrap">
-                  <img src="./assets/images/cheery-can.png" alt="cheery-can" class="img-fluid ref-1">
+                  <img src="./assets/models/img-ref.png" alt="cheery-can" class="img-fluid ref-1">
                 </div>
               </div>
             </div>
@@ -240,7 +270,7 @@
             <div class="col-lg-6 order-1 order-lg-2">
               <div class="sec-img sticky-wrap position-relative h-100">
                 <div class="inner-wrap">
-                  <img src="./assets/images/cheery-can.png" alt="cheery-can" class="img-fluid ref-2">
+                  <img src="./assets/models/img-ref.png" alt="cheery-can" class="img-fluid ref-2">
                 </div>
               </div>
             </div>
@@ -307,7 +337,7 @@
             <div class="col-lg-6 order-1 order-lg-2">
               <div class="sec-img sticky-wrap position-relative h-100">
                 <div class="inner-wrap">
-                  <img src="./assets/images/cheery-can.png" alt="cheery-can" class="img-fluid ref-3">
+                  <img src="./assets/models/img-ref.png" alt="cheery-can" class="img-fluid ref-3">
                 </div>
               </div>
             </div>
@@ -338,7 +368,7 @@
           <!-- orange -->
           <div class="col-md-4">
             <div class="product-wrap">
-              <img src="./assets/images/orange-can.png" alt="Cherry Soda" class="img-fluid ref-4">
+              <img src="./assets/models/img-ref.png" alt="Cherry Soda" class="img-fluid ref-4">
               <h3 class="head-xs alter-txt">orange<br>soda</h3>
               <p class="f-light darker-text">$16 / 6 Pack</p>
               <a href="#" class="theme-btn alter" title="Learn More">Learn More</a>
@@ -347,7 +377,7 @@
           <!-- cherry -->
           <div class="col-md-4">
             <div class="product-wrap">
-              <img src="./assets/images/cheery-can.png" alt="Cherry Soda" class="img-fluid">
+              <img src="./assets/models/red.png" alt="Cherry Soda" class="img-fluid">
               <h3 class="head-xs theme-txt">cherry<br>cola</h3>
               <p class="f-light darker-text">$80 / 6 Pack</p>
               <a href="#" class="theme-btn" title="Learn More">Learn More</a>
@@ -356,7 +386,7 @@
           <!-- grape -->
           <div class="col-md-4">
             <div class="product-wrap">
-              <img src="./assets/images/grape-can.png" alt="Cherry Soda" class="img-fluid">
+              <img src="./assets/models/grape.png" alt="Cherry Soda" class="img-fluid">
               <h3 class="head-xs secondary-txt">grape<br>soda</h3>
               <p class="f-light darker-text">$16 / 6 Pack</p>
               <a href="#" class="theme-btn secondary" title="Learn More">Learn More</a>
@@ -367,6 +397,235 @@
     </section>
     <!-- Section end   | product list sec -->
 
+
+    <!-- Section start | Map section -->
+    <section class="sec-pd map-sec">
+      <!-- <div class="h-text-container">
+        <span class="text head-xs">dope soda made for you</span>
+        <img src="./assets/images/h-img1.png" alt="User">
+        <span class="text head-xs">holy grace whatcha</span>
+        <img src="./assets/images/h-img2.png" alt="User">
+        <span class="text head-xs">dope shit soda wuhoo soda</span>
+        <img src="./assets/images/h-img3.png" alt="User">
+        <span class="text head-xs">great soda</span>
+        <img src="./assets/images/h-img4.png" alt="User">
+        <span class="text head-xs">holy grace whatcha</span>
+      </div>
+      <div class="h-text-container">
+        <span class="text head-xs">dope soda made for you</span>
+        <img src="./assets/images/h-img1.png" alt="User">
+        <span class="text head-xs">holy grace whatcha</span>
+        <img src="./assets/images/h-img2.png" alt="User">
+        <span class="text head-xs">dope shit soda wuhoo soda</span>
+        <img src="./assets/images/h-img3.png" alt="User">
+        <span class="text head-xs">great soda</span>
+        <img src="./assets/images/h-img4.png" alt="User">
+        <span class="text head-xs">holy grace whatcha</span>
+      </div> -->
+
+      <div class="h-text-wrapper">
+        <div class="h-text-track">
+          <div class="h-text-container">
+            <span class="text head-xs">dope soda made for you</span>
+            <img src="./assets/images/h-img1.png" alt="User">
+            <span class="text head-xs">dope shit soda wuhoo soda</span>
+            <img src="./assets/images/h-img3.png" alt="User">
+            <span class="text head-xs">great soda</span>
+            <img src="./assets/images/h-img4.png" alt="User">
+          </div>
+          <!-- duplicate for seamless loop -->
+          <div class="h-text-container">
+            <span class="text head-xs">dope soda made for you</span>
+            <img src="./assets/images/h-img1.png" alt="User">
+            <span class="text head-xs">holy grace whatcha</span>
+            <img src="./assets/images/h-img2.png" alt="User">
+            <span class="text head-xs">dope shit soda wuhoo soda</span>
+          </div>
+        </div>
+      </div>
+      <div class="h-text-wrapper">
+        <div class="h-text-track">
+          <div class="h-text-container">
+            <span class="text head-xs">dope soda made for you</span>
+            <img src="./assets/images/h-img1.png" alt="User">
+            <span class="text head-xs">holy grace whatcha</span>
+            <img src="./assets/images/h-img2.png" alt="User">
+            <span class="text head-xs">dope shit soda wuhoo soda</span>
+          </div>
+          <!-- duplicate for seamless loop -->
+          <div class="h-text-container">
+            <img src="./assets/images/h-img1.png" alt="User">
+            <span class="text head-xs">dope shit soda wuhoo soda</span>
+            <img src="./assets/images/h-img3.png" alt="User">
+            <span class="text head-xs">great soda</span>
+            <img src="./assets/images/h-img4.png" alt="User">
+            <span class="text head-xs">dope soda made for you</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Svg container -->
+      <div class="map-svg">
+        <img src="./assets/models/map.svg" alt="Map">
+      </div>
+
+      <!-- Theme text -->
+      <div class="inner-container">
+        <h2 class="head-xs theme-txt">300+ stores</h2>
+        <h3 class="head-xs theme-txt">120+ stores <br> worldwide</h3>
+        <div class="xs-container">
+          <p>Lolli Soda can be found at retail locations throughout the country, and is also available to be shipped directly to your door, nationwide.</p>
+        </div>
+      </div>
+
+    </section>
+    <!-- Section end   | Map section -->
+
+    <!-- Section start | Promo sec -->
+    <section class="sec-pd full-flex full-vh banner-sec img-banner promo-sec sec-overlay">
+      <img src="https://media.lollisoda.com/wp-content/uploads/2025/04/2N3A0919-retouched.jpg.webp" alt="Promo" class="img-fluid bg-img w-100 h-100 lazyloaded" width="1920" height="1080" data-src="https://media.lollisoda.com/wp-content/uploads/2025/04/2N3A0919-retouched.jpg.webp" decoding="async" data-eio-rwidth="1920" data-eio-rheight="1280" data-src-webp="https://media.lollisoda.com/wp-content/uploads/2025/04/2N3A0919-retouched.jpg.webp"><noscript><img src="https://media.lollisoda.com/wp-content/uploads/2025/04/2N3A0919-retouched.jpg" alt="Promo" class="img-fluid bg-img w-100 h-100" width="1920" height="1080" data-eio="l"></noscript>
+      <div class="content w-100">
+        <div class="lg-container text-center">
+          <h2 class="head-xxl text-white pb-lg-4">do you.</h2>
+          <div class="head-xs-2 text-white">DO WHAT YOU WANT.<br> DRINK WHAT YOU WANT.</div>
+        </div>
+      </div>
+    </section>
+    <!-- Section end   | Promo sec -->
+
+    <footer class="site-footer mt-lg-5 mt-2">
+    <div class="sec-pd">
+        <div class="inner-container">
+            <div class="row align-items-center">
+                <div class="col-md-4 order-md-2">
+                    <div class="logo">
+                        <a href="https://qa10625.lollisoda.com/" class="logo-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="474.635" height="214.707" viewBox="0 0 474.635 214.707" class="img-fluid d-md-block d-none footer-logo-anime">
+                            <g id="Group_82" data-name="Group 82" transform="translate(-722.682 -8262.646)">
+                                <g id="Group_83" data-name="Group 83" class="line-1">
+                                <rect id="Rectangle_30" data-name="Rectangle 30" width="66.706" height="214.707" transform="translate(722.682 8262.646)" fill="#D0011C"></rect>
+                                </g>
+                                <g id="Group_85" data-name="Group 85" class="line-2">
+                                <rect id="Rectangle_31" data-name="Rectangle 31" width="66.704" height="214.707" transform="translate(975.719 8262.646)" fill="#D0011C"></rect>
+                                </g>
+                                <rect id="Rectangle_32" data-name="Rectangle 32" width="66.706" height="214.707" transform="translate(1052.323 8262.646)" fill="#D0011C"></rect>
+                                <rect id="Rectangle_33" data-name="Rectangle 33" width="66.704" height="138.254" transform="translate(1128.932 8339.1)" fill="#D0011C"></rect>
+                                <g id="Group_84" data-name="Group 84" class="circle-1">
+                                    <path id="Path_120" data-name="Path 120" d="M209.862,107.043a86.781,86.781,0,1,0-86.782,86.78,86.781,86.781,0,0,0,86.782-86.78m-118.714,0a31.933,31.933,0,1,1,31.932,31.932,31.934,31.934,0,0,1-31.932-31.932" transform="translate(759.756 8283.341)" fill="#D0011C"></path>
+                                </g>
+                                <path id="Path_121" data-name="Path 121" d="M235.186,69.639a34.82,34.82,0,1,1,34.821-34.821,34.821,34.821,0,0,1-34.821,34.821" transform="translate(927.312 8262.646)" fill="#D0011C"></path>
+                            </g>
+                        </svg>
+                            <!-- <img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="" height="" width="" class="img-fluid d-md-block d-none lazyload" data-src="https://qa10625.lollisoda.com/wp-content/themes/lollisoda/public/images/logo.528eb6.svg" decoding="async"><noscript><img src="https://qa10625.lollisoda.com/wp-content/themes/lollisoda/public/images/logo.528eb6.svg" alt="" height="" width="" class="img-fluid d-md-block d-none" data-eio="l"></noscript> -->
+                            <svg xmlns="http://www.w3.org/2000/svg" width="368.784" height="815.241" viewBox="0 0 368.784 815.241" class="img-fluid footer-logo-anime-2 m-auto d-md-none">
+                                <g id="Group_89" data-name="Group 89" transform="translate(-30.608 -4236.417)">
+                                    <g id="Group_86" data-name="Group 86" class="line-1">
+                                    <rect id="Rectangle_30" data-name="Rectangle 30" width="114.576" height="368.784" transform="translate(30.608 5051.658) rotate(-90)" fill="#D0011C"></rect>
+                                    </g>
+                                    <g id="Group_88" data-name="Group 88" class="line-2">
+                                    <rect id="Rectangle_31" data-name="Rectangle 31" width="114.572" height="368.784" transform="translate(30.608 4617.039) rotate(-90)" fill="#D0011C"></rect>
+                                    </g>
+                                    <rect id="Rectangle_32" data-name="Rectangle 32" width="114.576" height="368.784" transform="translate(30.608 4485.463) rotate(-90)" fill="#D0011C"></rect>
+                                    <rect id="Rectangle_33" data-name="Rectangle 33" width="114.572" height="237.467" transform="translate(161.925 4353.879) rotate(-90)" fill="#D0011C"></rect>
+                                    <g id="Group_87" data-name="Group 87" class="circle-1">
+                                    <path id="Path_120" data-name="Path 120" d="M334.413,169.317A149.056,149.056,0,1,0,185.355,318.371,149.056,149.056,0,0,0,334.413,169.317m-203.9,0a54.849,54.849,0,1,1,54.847,54.847,54.85,54.85,0,0,1-54.847-54.847" transform="translate(80.694 4961.93) rotate(-90)" fill="#D0011C"></path>
+                                    </g>
+                                    <path id="Path_121" data-name="Path 121" d="M260.173,119.613A59.807,59.807,0,1,1,319.982,59.8a59.809,59.809,0,0,1-59.809,59.808" transform="translate(30.608 4556.399) rotate(-90)" fill="#D0011C"></path>
+                                </g>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4 order-md-1">
+                    
+                                                <ul class="social-links d-md-none">
+                                                                    <li>
+                                        <a href="https://www.instagram.com/drinklolli/" target="_blank" class="link" title="Instagram">
+                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYAQMAAADaua+7AAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAAtJREFUCB1joDEAAABgAAH63driAAAAAElFTkSuQmCC" height="24" width="24" class="img-fluid lazyload" alt="" data-src="https://d2dz7n5zlud3qy.cloudfront.net/wp-content/uploads/2024/11/insta.svg" decoding="async" data-eio-rwidth="24" data-eio-rheight="24"><noscript><img src="https://d2dz7n5zlud3qy.cloudfront.net/wp-content/uploads/2024/11/insta.svg" 
+                                                height="24" 
+                                                width="24" 
+                                                class="img-fluid" 
+                                                alt="" data-eio="l"></noscript>
+                                        </a>
+                                    </li>
+                                                                    <li>
+                                        <a href="https://x.com/drinklolli" target="_blank" class="link" title="X">
+                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYAQMAAADaua+7AAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAAtJREFUCB1joDEAAABgAAH63driAAAAAElFTkSuQmCC" height="24" width="24" class="img-fluid lazyload" alt="" data-src="https://d2dz7n5zlud3qy.cloudfront.net/wp-content/uploads/2024/11/twitter.svg" decoding="async" data-eio-rwidth="24" data-eio-rheight="24"><noscript><img src="https://d2dz7n5zlud3qy.cloudfront.net/wp-content/uploads/2024/11/twitter.svg" 
+                                                height="24" 
+                                                width="24" 
+                                                class="img-fluid" 
+                                                alt="" data-eio="l"></noscript>
+                                        </a>
+                                    </li>
+                                                                    <li>
+                                        <a href="https://www.tiktok.com/en/lollisoda%20" target="_blank" class="link" title=" Tik-tok">
+                                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYAQMAAADaua+7AAAAA1BMVEUAAACnej3aAAAAAXRSTlMAQObYZgAAAAtJREFUCB1joDEAAABgAAH63driAAAAAElFTkSuQmCC" height="24" width="24" class="img-fluid lazyload" alt="" data-src="https://d2dz7n5zlud3qy.cloudfront.net/wp-content/uploads/2024/11/tiktok.svg" decoding="async" data-eio-rwidth="24" data-eio-rheight="24"><noscript><img src="https://d2dz7n5zlud3qy.cloudfront.net/wp-content/uploads/2024/11/tiktok.svg" 
+                                                height="24" 
+                                                width="24" 
+                                                class="img-fluid" 
+                                                alt="" data-eio="l"></noscript>
+                                        </a>
+                                    </li>
+                                                            </ul>
+                                            <ul class="footer-links"><li><a class="link" title="order online" href="https://qa10625.lollisoda.com/shop/">order online</a></li><li><a class="link" title="Find Nearby" href="https://qa10625.lollisoda.com/locations/">Find Nearby</a></li><li><a class="link" title="contact us" href="https://qa10625.lollisoda.com/contact-us/">contact us</a></li><li><a class="link" title="About Lolli" href="https://qa10625.lollisoda.com/about/">About Lolli</a></li><li><a class="link" title="faqs" href="https://qa10625.lollisoda.com/faq/">faqs</a></li><li><a class="link" title="MANUFACTURING &amp; COA" href="https://qa10625.lollisoda.com/manufacturing/">MANUFACTURING &amp; COA</a></li><li><a class="link" title="Landing Page – Demo 1" href="https://qa10625.lollisoda.com/landing-page-demo-1/">Landing Page – Demo 1</a></li><li><a class="link" title="Landing Page – Demo 2" href="https://qa10625.lollisoda.com/landing-page-demo-2/">Landing Page – Demo 2</a></li></ul>                </div>
+                <div class="col-md-4 order-md-3 text-md-right">
+                    <div class="d-inline-block">
+
+                                            <ul class="social-links d-md-flex d-none">
+                                                            <li>
+                                    <a href="https://www.instagram.com/drinklolli/" target="_blank" class="link" title="Instagram">
+                                        <img src="https://d2dz7n5zlud3qy.cloudfront.net/wp-content/uploads/2024/11/insta.svg" height="24" width="24" class="img-fluid ls-is-cached lazyloaded" alt="" data-src="https://d2dz7n5zlud3qy.cloudfront.net/wp-content/uploads/2024/11/insta.svg" decoding="async" data-eio-rwidth="24" data-eio-rheight="24"><noscript><img src="https://d2dz7n5zlud3qy.cloudfront.net/wp-content/uploads/2024/11/insta.svg" 
+                                            height="24" 
+                                            width="24" 
+                                            class="img-fluid" 
+                                            alt="" data-eio="l"></noscript>
+                                    </a>
+                                </li>
+                                                            <li>
+                                    <a href="https://x.com/drinklolli" target="_blank" class="link" title="X">
+                                        <img src="https://d2dz7n5zlud3qy.cloudfront.net/wp-content/uploads/2024/11/twitter.svg" height="24" width="24" class="img-fluid lazyloaded" alt="" data-src="https://d2dz7n5zlud3qy.cloudfront.net/wp-content/uploads/2024/11/twitter.svg" decoding="async" data-eio-rwidth="24" data-eio-rheight="24"><noscript><img src="https://d2dz7n5zlud3qy.cloudfront.net/wp-content/uploads/2024/11/twitter.svg" 
+                                            height="24" 
+                                            width="24" 
+                                            class="img-fluid" 
+                                            alt="" data-eio="l"></noscript>
+                                    </a>
+                                </li>
+                                                            <li>
+                                    <a href="https://www.tiktok.com/en/lollisoda%20" target="_blank" class="link" title=" Tik-tok">
+                                        <img src="https://d2dz7n5zlud3qy.cloudfront.net/wp-content/uploads/2024/11/tiktok.svg" height="24" width="24" class="img-fluid lazyloaded" alt="" data-src="https://d2dz7n5zlud3qy.cloudfront.net/wp-content/uploads/2024/11/tiktok.svg" decoding="async" data-eio-rwidth="24" data-eio-rheight="24"><noscript><img src="https://d2dz7n5zlud3qy.cloudfront.net/wp-content/uploads/2024/11/tiktok.svg" 
+                                            height="24" 
+                                            width="24" 
+                                            class="img-fluid" 
+                                            alt="" data-eio="l"></noscript>
+                                    </a>
+                                </li>
+                                                    </ul>
+                    
+                        <!-- Third menu list -->
+                        <ul class="alter-links"><li><section class="widget_text thfaqf-widget widget custom_html-4 widget_custom_html"><div class="textwidget custom-html-widget"><p class="copy">© 2025 Lolli Soda</p></div></section></li><li><a class="link" title="privacy policy" href="https://qa10625.lollisoda.com/privacy-policy/">privacy policy</a></li><li><a class="link" title="shipping policy" href="https://qa10625.lollisoda.com/shipping-policy/">shipping policy</a></li><li><a class="link" title="term &amp; conditions" href="https://qa10625.lollisoda.com/term-conditions/">term &amp; conditions</a></li><li><a class="link" title="refund &amp; returns policy" href="https://qa10625.lollisoda.com/refund_returns/">refund &amp; returns policy</a></li></ul>                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="widget_text thfaqf-widget widget custom_html-5 widget_custom_html"><div class="textwidget custom-html-widget"><div class="bottom-bar text-center">These statements have not been evaluated by the FDA. This product is not intended to diagnose, treat, cure or prevent any disease.</div></div></section> 
+    <div class="pull-up-bar" style="">
+        <div class="inner bg-theme sm-pd text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32.097" height="21.553" viewBox="0 0 32.097 21.553" class="img-fluid align-middle">
+                <g id="lol-logo" transform="translate(3186 -9137.646)">
+                    <g id="Group_83" data-name="Group 83" transform="translate(-3186 9137.646)">
+                    <rect id="Rectangle_30" data-name="Rectangle 30" width="6.696" height="21.553" transform="translate(0 0)" fill="#ffffff"></rect>
+                    </g>
+                    <g id="Group_85" data-name="Group 85" transform="translate(-3160.599 9137.646)">
+                    <rect id="Rectangle_31" data-name="Rectangle 31" width="6.696" height="21.553" transform="translate(0 0)" fill="#ffffff"></rect>
+                    </g>
+                    <g id="Group_84" data-name="Group 84" transform="translate(-3178.634 9141.759)">
+                    <path id="Path_120" data-name="Path 120" d="M53.724,28.974a8.711,8.711,0,1,0-8.711,8.711,8.711,8.711,0,0,0,8.711-8.711m-11.917,0a3.206,3.206,0,1,1,3.205,3.205,3.206,3.206,0,0,1-3.205-3.205" transform="translate(-36.301 -20.263)" fill="#ffffff"></path>
+                    </g>
+                </g>
+            </svg>  
+        </div>
+    </div>
+</footer>
 
   </body>
 </html>
