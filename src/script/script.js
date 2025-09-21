@@ -1,13 +1,17 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MotionPathPlugin } from "gsap/MotionPathPlugin";
+import Observer from "gsap/Observer";
+import * as THREE from "three";
+import { DRACOLoader, GLTFLoader, RGBELoader } from "three/examples/jsm/Addons.js";
 import Lenis from 'lenis'
 
 
 // ✅ Register all plugins once here
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 
-export { gsap, ScrollTrigger, MotionPathPlugin };
+export { gsap, ScrollTrigger, MotionPathPlugin,Observer };
+export { THREE, DRACOLoader, GLTFLoader, RGBELoader };
 
 // ================ Utility Functions =================
 
@@ -133,7 +137,7 @@ lenis.on('scroll', ScrollTrigger.update);
 // Add Lenis's requestAnimationFrame (raf) method to GSAP's ticker
 // This ensures Lenis's smooth scroll animation updates on each GSAP tick
 gsap.ticker.add((time) => {
-  lenis.raf(time * 600); // Convert time from seconds to milliseconds
+  lenis.raf(time * 700); // Convert time from seconds to milliseconds
 });
 
 // Disable lag smoothing in GSAP to prevent any delay in scroll animations

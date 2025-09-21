@@ -1,78 +1,91 @@
-import * as THREE from "three";
-import { DRACOLoader, GLTFLoader, RGBELoader } from "three/examples/jsm/Addons.js";
-import {gsap} from "./script.js";
+import { THREE, DRACOLoader, GLTFLoader, RGBELoader } from "./script.js";
+
 class ModelMaker {
   constructor({
-    canvas,
-    refImage,
+    canvas = null,
+    refImage = null,
     environmentUri = "./assets/models/environment.hdr",
     modelUri = "./assets/models/model.gltf",
-    initial = {
-      rotation: { x: 0.065, y: 4.56, z: 0 },
-      cameraAxis: { x: 0, y: 1.6, z: 46 },
-      metalness: 1.1,
-      roughness: 0.3,
-    },
+    fov = 45,
+    cameraPosition = { x: 0, y: 0, z: 6 },
+    isFullWindow = false,
   }) {
-    this.canvas =
-      typeof canvas === "string" ? document.querySelector(canvas) : canvas;
-    this.refImage =
-      typeof refImage === "string"
-        ? document.querySelector(refImage)
-        : refImage;
+    this.canvas = typeof canvas === "string" ? document.querySelector(canvas) : canvas;
+    this.refImage = typeof refImage === "string" ? document.querySelector(refImage) : refImage;
 
     this.environmentUri = environmentUri;
     this.modelUri = modelUri;
-    this.initial = initial;
+    this.fov = fov;
+    this.cameraPosition = cameraPosition;
+    this.isFullWindow = isFullWindow;
 
+    // Core
     this.scene = new THREE.Scene();
     this.camera = null;
     this.renderer = null;
-    this.model = null;
+    this.modelTemplate = null; // <-- Base model loaded once
     this.bodyMeshes = [];
 
-    // loaders
+    // Loaders
     this.gltfLoader = new GLTFLoader();
     this.rgbeLoader = new RGBELoader();
     this.textureLoader = new THREE.TextureLoader();
     this.dracoLoader = new DRACOLoader();
-    this.dracoLoader.setDecoderPath(
-      "https://www.gstatic.com/draco/versioned/decoders/1.5.7/"
-    );
+    this.dracoLoader.setDecoderPath("https://www.gstatic.com/draco/versioned/decoders/1.5.7/");
     this.gltfLoader.setDRACOLoader(this.dracoLoader);
 
     this.animate = this.animate.bind(this);
   }
 
   async init() {
-    this.canvas = this.canvas || this._createCanvasAboveImage();
+    // Setup canvas
+    if (!this.canvas) {
+      this.canvas = this._createCanvas(); // merged creation logic
+    }
+
     await this._setupCanvasSize();
     await this._setupEnvironment();
     this._setupCamera();
     this._setupRenderer();
-    await this._loadModel();
+
+    // 🚫 Do NOT load model here anymore
     this.animate();
   }
-
-    _createCanvasAboveImage() {
+  _createCanvas() {
     const canvas = document.createElement("canvas");
     canvas.style.position = "absolute";
     canvas.style.top = "0";
     canvas.style.left = "0";
-    canvas.style.pointerEvents = "none";
+    canvas.style.pointerEvents = this.refImage ? "none" : "auto";
     canvas.classList.add("model-maker-canvas");
 
-    const wrapper = document.createElement("div");
-    wrapper.style.position = "relative";
-    wrapper.style.display = "inline-block";
+    let container;
 
-    if (this.refImage && this.refImage.parentNode) {
-      this.refImage.parentNode.insertBefore(wrapper, this.refImage);
-      wrapper.appendChild(this.refImage);
-      wrapper.appendChild(canvas);
-      this.referenceWrapper = wrapper;
-    } else {
-      // fallback: append to body
+    // 1️⃣ User provided parent container
+    if (this.refParent) {
+      container = typeof this.refParent === "string" ? document.querySelector(this.refParent) : this.refParent;
+      container.style.position = "relative";
+      container.appendChild(canvas);
+    } 
+    // 2️⃣ Reference image exists
+    else if (this.refImage) {
+      container = document.createElement("div");
+      container.style.position = "relative";
+      container.style.display = "inline-block";
+
+      this.refImage.parentNode.insertBefore(container, this.refImage);
+      container.appendChild(this.refImage);
+      container.appendChild(canvas);
+      this.referenceWrapper = container;
+    } 
+    // 3️⃣ Full window fallback
+    else if (this.isFullWindow) {
+      canvas.style.width = "100%";
+      canvas.style.height = "100%";
+      document.body.appendChild(canvas);
+    } 
+    // 4️⃣ Default fallback
+    else {
       document.body.appendChild(canvas);
     }
 
@@ -80,25 +93,62 @@ class ModelMaker {
   }
 
   async _setupCanvasSize() {
-    const refImage = this.refImage;
+    const updateSize = () => {
+      let width, height;
 
+      if (this.refParent) {
+        const rect = this.refParent.getBoundingClientRect();
+        width = rect.width;
+        height = rect.height;
+      } else if (this.refImage) {
+        const rect = this.refImage.getBoundingClientRect();
+        width = rect.width;
+        height = rect.height;
+      } else {
+        width = window.innerWidth;
+        height = window.innerHeight;
+      }
+
+      const pixelRatio = window.devicePixelRatio || 1;
+
+      // Set physical canvas size
+      this.canvas.width = width * pixelRatio;
+      this.canvas.height = height * pixelRatio;
+
+      // Set CSS size
+      this.canvas.style.width = `${width}px`;
+      this.canvas.style.height = `${height}px`;
+
+      // Update camera
+      if (this.camera) {
+        this.camera.aspect = width / Math.max(1, height);
+        this.camera.updateProjectionMatrix();
+      }
+
+      // Update renderer
+      if (this.renderer) {
+        this.renderer.setPixelRatio(pixelRatio);
+        this.renderer.setSize(width, height, false);
+      }
+    };
+
+    // Wait for image to load
     const waitForImageLoad = () =>
       new Promise((resolve) => {
-        if (!refImage) return resolve();
-        if (refImage.complete && refImage.naturalWidth > 0) return resolve();
-        refImage.addEventListener("load", () => resolve(), { once: true });
+        if (!this.refImage) return resolve();
+        if (this.refImage.complete && this.refImage.naturalWidth > 0) return resolve();
+        this.refImage.addEventListener("load", () => resolve(), { once: true });
       });
 
     await waitForImageLoad();
 
-    const rect = refImage
-      ? refImage.getBoundingClientRect()
-      : { width: window.innerWidth, height: window.innerHeight };
+    // Initial sizing
+    updateSize();
 
-    this.canvas.width = rect.width;
-    this.canvas.height = rect.height;
-    this.canvas.style.width = `${rect.width}px`;
-    this.canvas.style.height = `${rect.height}px`;
+    // Update on window resize or zoom
+    window.addEventListener("resize", updateSize);
+    // Listen to zoom changes (optional, for better accuracy)
+    window.addEventListener("scroll", updateSize, { passive: true });
   }
 
   async _setupEnvironment() {
@@ -119,16 +169,12 @@ class ModelMaker {
 
   _setupCamera() {
     this.camera = new THREE.PerspectiveCamera(
-      10,
+      this.fov,
       this.canvas.width / Math.max(1, this.canvas.height),
       0.01,
       100
     );
-    this.camera.position.set(
-      this.initial.cameraAxis.x,
-      this.initial.cameraAxis.y,
-      this.initial.cameraAxis.z
-    );
+    this.camera.position.set(this.cameraPosition.x, this.cameraPosition.y, this.cameraPosition.z);
     this.camera.lookAt(0, 0, 0);
   }
 
@@ -138,43 +184,22 @@ class ModelMaker {
       alpha: true,
       antialias: true,
     });
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1));
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     this.renderer.setSize(this.canvas.width, this.canvas.height);
     this.renderer.outputColorSpace = THREE.SRGBColorSpace;
     this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
   }
 
-  async _loadModel() {
+  async _loadModelTemplate() {
+    if (this.modelTemplate) return this.modelTemplate; // Already loaded
+
     return new Promise((resolve, reject) => {
       this.gltfLoader.load(
         this.modelUri,
         (gltf) => {
-          this.model = gltf.scene;
-          this.model.rotation.set(
-            this.initial.rotation.x,
-            this.initial.rotation.y,
-            this.initial.rotation.z
-          );
-
-          this.model.traverse((child) => {
-            if (child.isMesh && child.material.name === "Body") {
-              child.material.metalness = this.initial.metalness;
-              child.material.roughness = this.initial.roughness;
-              child.castShadow = true;
-              child.receiveShadow = true;
-              this.bodyMeshes.push(child);
-            }
-            if (child.isMesh && child.material.name === "Silver") {
-              child.material.metalness = 1;
-              child.material.roughness = 0.17;
-              child.castShadow = true;
-              child.receiveShadow = true;
-              this.bodyMeshes.push(child);
-            }
-          });
-
-          this.scene.add(this.model);
-          resolve();
+          this.modelTemplate = gltf.scene;
+          this._processModel(this.modelTemplate);
+          resolve(this.modelTemplate);
         },
         undefined,
         (error) => reject(error)
@@ -182,61 +207,54 @@ class ModelMaker {
     });
   }
 
-  // 🔹 Function to change texture dynamically (can be GSAP-controlled)
-  // 🔹 Crossfade Texture Function
-  changeTextureCrossfade(texturePath, duration = 1) {
-    console.log("Crossfading to:", texturePath);
-
-    this.textureLoader.load(
-      texturePath,
-      (newTexture) => {
-        newTexture.colorSpace = THREE.SRGBColorSpace;
-        newTexture.flipY = false;
-        newTexture.needsUpdate = true;
-
-        this.bodyMeshes.forEach((mesh) => {
-          if (mesh && mesh.material && mesh.material.name === "Body") {
-            // Keep old texture as "map"
-            const oldTexture = mesh.material.map;
-
-            // Add new texture to emissiveMap (second slot)
-            mesh.material.emissiveMap = newTexture;
-            // mesh.material.emissive.set(0xffffff); // make emissive visible
-            mesh.material.needsUpdate = true;
-
-            // Start with emissiveMap hidden
-            mesh.material.emissiveIntensity = 0;
-
-            // 🔹 Crossfade with GSAP
-            gsap.to(mesh.material, {
-              emissiveIntensity: 1,
-              duration,
-              ease: "power2.inOut",
-              onComplete: () => {
-                // Replace old with new
-                mesh.material.map = newTexture;
-                mesh.material.emissiveMap = null;
-                mesh.material.emissiveIntensity = 0;
-
-                if (oldTexture) oldTexture.dispose();
-                mesh.material.needsUpdate = true;
-              },
-            });
-          }
-        });
-      },
-      undefined,
-      (err) => console.error("❌ Failed to load texture:", err)
-    );
+  _processModel(model) {
+    model.traverse((child) => {
+      if (child.isMesh && child.material) {
+        if (child.material.name === "Body") {
+          child.material.metalness = 1.1;
+          child.material.roughness = 0.25;
+          this.bodyMeshes.push(child);
+        }
+        if (child.material.name === "Silver") {
+          child.material.metalness = 1.3;
+          child.material.roughness = 0.1;
+        }
+      }
+    });
   }
 
+  // 🔹 Public: Create a can
+  async createCan({
+    position = new THREE.Vector3(0, 0, 0),
+    scale = 0.2,
+    rotation = 0,
+    texturePath = null,
+  }) {
+    const template = await this._loadModelTemplate();
+    const can = template.clone();
 
-  updateRotation(rotation) {
-    // this.models.forEach((entry) => {
-    //   if (entry && entry.model) {
-        this.model.rotation.set(rotation.x, rotation.y, rotation.z);
-      // }
-    // });
+    can.position.copy(position);
+    can.scale.set(scale, scale, scale);
+    can.rotation.z = rotation;
+    can.rotateOnAxis(new THREE.Vector3(0, 1, 0), -Math.PI / 2);
+
+    if (texturePath) {
+      can.traverse((child) => {
+        if (child.isMesh && child.material.name === "Body") {
+          child.material = child.material.clone();
+          const tex = this.textureLoader.load(texturePath);
+          tex.colorSpace = THREE.SRGBColorSpace;
+          tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+          tex.center.set(0.5, 0.5);
+          tex.flipY = false;
+          child.material.map = tex;
+          child.material.needsUpdate = true;
+        }
+      });
+    }
+
+    this.scene.add(can);
+    return can;
   }
 
   animate() {
