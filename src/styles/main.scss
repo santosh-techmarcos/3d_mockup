@@ -586,7 +586,9 @@ span.select2-container {z-index: 999 !important;}
   overflow: hidden;
   .h-text-wrapper{
     @extend .d-flex; white-space: nowrap; width: calc(100% + 50px); background: black; min-height: 75px;transform-origin: center center;
-    .h-text-track{@extend .d-flex;}
+    .h-text-track{@extend .d-flex;
+      &.right{ flex-direction: row-reverse;} /* content order reversed */
+    }
     .h-text-container{@extend .d-flex,.align-items-center;}
     .text{color: white;}
     &:nth-child(1){transform:rotateZ(7deg) translateX(-25px)}
