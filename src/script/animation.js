@@ -57,7 +57,7 @@ function resumeAll() {
 function buildMotionPath() {
   const sectionsElems = [".img-sec", ".ref-1", ".ref-2", ".ref-3", ".ref-4"];
   const rects = sectionsElems.map((sel, i) =>
-    getElemRect({ el: sel, markers:true, hasgrandParent: i > 0 && i < 4 })
+    getElemRect({ el: sel, markers:false, hasgrandParent: i > 0 && i < 4 })
   );
 
   const motionPathPoints = [
